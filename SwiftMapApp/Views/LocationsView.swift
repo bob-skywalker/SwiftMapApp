@@ -14,7 +14,12 @@ struct LocationsView: View {
      
     var body: some View {
         ZStack {
-            Map(position: $vm.mapCameraPosition)
+            VStack {
+                Button("Change Location") {
+                    vm.mapLocation = LocationsDataService.locations[1]
+                }
+                Map(position: $vm.mapCameraPosition)
+            }
         }
     }
 }
