@@ -16,7 +16,7 @@ class LocationsViewModel: ObservableObject {
             updateCameraPosition(location: mapLocation)
         }
     }
-    @Published var mapCameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: LocationsDataService.locations.first!.coordinates, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)))
+    @Published var mapCameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: LocationsDataService.locations.first!.coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
     @Published private(set) var isArrowTapped: Bool = false
 
     init() {
@@ -41,6 +41,9 @@ class LocationsViewModel: ObservableObject {
         isArrowTapped.toggle()
     }
     
+    func displayTappedLocationOnPin(location: Location) {
+        mapLocation = location
+    }
     
     func nextButtonLocation() {
         guard let currentIndex = locations.firstIndex(where: { $0 == mapLocation }) else {
