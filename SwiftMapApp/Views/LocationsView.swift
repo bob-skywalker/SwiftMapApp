@@ -16,14 +16,30 @@ struct LocationsView: View {
         ZStack {
             
             Map(position: $vm.mapCameraPosition)
+                .ignoresSafeArea()
             
             VStack(spacing: 0){
                 
                 header
-                .padding()
+                    .padding()
                 
                 
                 Spacer()
+                
+                ZStack {
+                    ForEach(vm.locations) { location in
+                        if vm.mapLocation == location {
+                            LocationPreview(location: location)
+                                .shadow(color: .black.opacity(0.3), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                                .padding()
+                                .transition(.asymmetric(
+                                    insertion: .move(edge: .trailing),
+                                    removal: .move(edge: .leading))
+                                )
+                        }
+                    }
+                }
+                .animation(.easeInOut, value: vm.mapLocation)
             }
         }
     }

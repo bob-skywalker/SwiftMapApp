@@ -40,4 +40,18 @@ class LocationsViewModel: ObservableObject {
         mapLocation = location
         isArrowTapped.toggle()
     }
+    
+    
+    func nextButtonLocation() {
+        guard let currentIndex = locations.firstIndex(where: { $0 == mapLocation }) else {
+            print("Could not find current index")
+            return
+        }
+        
+        if currentIndex == locations.count - 1 {
+            mapLocation = locations.first!
+        } else {
+            mapLocation = locations[currentIndex + 1]
+        }
+    }
 }
