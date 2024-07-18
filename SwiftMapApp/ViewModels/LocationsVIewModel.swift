@@ -18,6 +18,7 @@ class LocationsViewModel: ObservableObject {
     }
     @Published var mapCameraPosition: MapCameraPosition = .region(MKCoordinateRegion(center: LocationsDataService.locations.first!.coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
     @Published private(set) var isArrowTapped: Bool = false
+    @Published var isLearnMoreTapped: Bool = false
 
     init() {
         self.locations = LocationsDataService.locations
@@ -26,7 +27,7 @@ class LocationsViewModel: ObservableObject {
     
     private func updateCameraPosition(location: Location) {
         withAnimation(.easeInOut) {
-            mapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinates.latitude, longitude: location.coordinates.longitude), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)))
+            mapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinates.latitude, longitude: location.coordinates.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
         }
     }
     

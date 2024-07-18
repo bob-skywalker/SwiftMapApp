@@ -9,10 +9,12 @@ import SwiftUI
 
 struct LocationPreview: View {
     @EnvironmentObject var vm: LocationsViewModel
+    let accentColor = Color("AccentColor")
     
     let location: Location
     
     var body: some View {
+        
         HStack(alignment: .bottom) {
             VStack(alignment: .leading, spacing: 16.0) {
                 imageView
@@ -24,7 +26,15 @@ struct LocationPreview: View {
             }
             
             VStack {
-                learnMoreButton
+                NavigationLink {
+                    LocationDetailView(location: location)
+                } label: {
+                    learnMoreButton
+                        .shadow(color: .black, radius: 30)
+                }
+
+                
+                Divider()
                 
                 nextButton
             }
@@ -36,16 +46,19 @@ struct LocationPreview: View {
                 .offset(y: 60)
         )
         .clipShape(RoundedRectangle(cornerRadius: 10))
+        
     }
 }
 
 #Preview {
-    ZStack {
-        Color.white.ignoresSafeArea()
-        
-        LocationPreview(location: LocationsDataService.locations.first!)
-            .environmentObject(LocationsViewModel())
-            .padding()
+    NavigationStack {
+        ZStack {
+            Color.white.ignoresSafeArea()
+            
+            LocationPreview(location: LocationsDataService.locations.first!)
+                .environmentObject(LocationsViewModel())
+                .padding()
+        }
     }
 }
 
@@ -75,14 +88,10 @@ extension LocationPreview {
     }
     
     private var learnMoreButton: some View {
-        Button(action: {
-             
-        }, label: {
-            Text("Learn more")
-                .font(.headline)
-                .frame(width: 125,height: 35)
-        })
-        .buttonStyle(.borderedProminent)
+        Text("Learn more")
+            .font(.headline)
+            .frame(width: 125,height: 35)
+        
     }
     
     private var nextButton: some View {

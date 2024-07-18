@@ -30,22 +30,24 @@ struct LocationsView: View {
     @EnvironmentObject var vm: LocationsViewModel
     
     var body: some View {
-        ZStack {
-            
-            mapLayer
-                .ignoresSafeArea()
-            
-            VStack(spacing: 0){
+        NavigationStack {
+            ZStack {
                 
-                header
-                    .padding()
+                mapLayer
+                    .ignoresSafeArea()
                 
-                
-                Spacer()
-                
-                
-                cardPreview
-
+                VStack(spacing: 0){
+                    
+                    header
+                        .padding()
+                    
+                    
+                    Spacer()
+                    
+                    
+                    cardPreview
+                    
+                }
             }
         }
     }
